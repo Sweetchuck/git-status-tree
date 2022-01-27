@@ -2,16 +2,18 @@
 
 declare(strict_types = 1);
 
+namespace Sweetchuck\GitStatusTree\Tests\Unit;
+
 use Codeception\Test\Unit;
-use PHPUnit\Framework\Assert;
-use Sweetchuck\GitStatusTree\Entry;
 use Sweetchuck\GitStatusTree\GitStatusParser;
+use Sweetchuck\GitStatusTree\Tests\UnitTester;
 
 /**
  * @covers \Sweetchuck\GitStatusTree\GitStatusParser
  */
 class GitStatusParserTest extends Unit
 {
+    protected UnitTester $tester;
 
     public function casesParse(): array
     {
@@ -65,29 +67,6 @@ class GitStatusParserTest extends Unit
     public function testParse(array $expected, string $lines): void
     {
         $parser = new GitStatusParser();
-        $this->assertEntryTree($expected, $parser->parse($lines));
+        $this->tester->assertEntryTree($expected, $parser->parse($lines));
     }
-
-    public function assertEntryTree(array $expected, Entry $entry)
-    {
-        if (array_key_exists('name', $expected)) {
-            Assert::assertSame($expected['name'], $entry->name);
-        }
-
-        if (array_key_exists('status', $expected)) {
-            Assert::assertSame($expected['status'], $entry->status);
-        }
-
-        if (array_key_exists('oldName', $expected)) {
-            Assert::assertSame($expected['oldName'], $entry->oldName);
-        }
-
-        if (array_key_exists('children', $expected)) {
-            Assert::assertSameSize($expected['children'], $entry->children);
-            foreach ($expected['children'] as $name => $expectedChild) {
-                $this->assertEntryTree($expectedChild, $entry->children[$name]);
-            }
-        }
-    }
-
 }

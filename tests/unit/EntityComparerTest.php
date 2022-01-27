@@ -5,15 +5,17 @@ declare(strict_types = 1);
 namespace Sweetchuck\GitStatusTree\Tests\Unit;
 
 use Codeception\Test\Unit;
-use PHPUnit\Framework\Assert;
 use Sweetchuck\GitStatusTree\Entry;
 use Sweetchuck\GitStatusTree\EntryComparer;
+use Sweetchuck\GitStatusTree\Tests\UnitTester;
 
 /**
  * @covers \Sweetchuck\GitStatusTree\EntryComparer
  */
 class EntityComparerTest extends Unit
 {
+    protected UnitTester $tester;
+
     public function casesCompare(): array
     {
         $cases = [];
@@ -107,6 +109,6 @@ class EntityComparerTest extends Unit
             $comparer->setSortBy($sortBy);
         }
 
-        Assert::assertSame($expected, $comparer($a, $b));
+        $this->tester->assertSame($expected, $comparer($a, $b));
     }
 }

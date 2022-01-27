@@ -2,12 +2,14 @@
 
 declare(strict_types = 1);
 
+namespace Sweetchuck\GitStatusTree\Tests\Unit;
+
 use Codeception\Test\Unit;
-use PHPUnit\Framework\Assert;
 use Sweetchuck\GitStatusTree\Color;
 use Sweetchuck\GitStatusTree\Config;
 use Sweetchuck\GitStatusTree\GitConfigParser;
 use Sweetchuck\GitStatusTree\GitConfigReader;
+use Sweetchuck\GitStatusTree\Tests\UnitTester;
 use Symfony\Component\Console\Helper\ProcessHelper;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,6 +20,7 @@ use Symfony\Component\Process\Process;
  */
 class GitConfigReaderTest extends Unit
 {
+    protected UnitTester $tester;
 
     public function casesRead(): array
     {
@@ -89,7 +92,16 @@ class GitConfigReaderTest extends Unit
             ->method('run')
             ->will(
                 $this->returnCallback(
-                    function (OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = OutputInterface::VERBOSITY_VERY_VERBOSE) use ($processResult, $process) {
+                    function (
+                        OutputInterface $output,
+                        $cmd,
+                        $error = null,
+                        callable $callback = null,
+                        $verbosity = OutputInterface::VERBOSITY_VERY_VERBOSE
+                    ) use (
+                        $processResult,
+                        $process
+                    ) {
                         if ($callback) {
                             $callback('out', $processResult['stdOutput']);
                             $callback('err', $processResult['stdError']);
@@ -111,9 +123,9 @@ class GitConfigReaderTest extends Unit
         $actualColors = $actual->colors;
         $actual->colors = [];
 
-        Assert::assertEquals($expected, $actual);
+        $this->tester->assertEquals($expected, $actual);
         foreach ($colorsToCheck as $key) {
-            Assert::assertEquals($expectedColors[$key], $actualColors[$key]);
+            $this->tester->assertEquals($expectedColors[$key], $actualColors[$key]);
         }
     }
 }

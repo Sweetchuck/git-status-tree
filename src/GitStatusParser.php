@@ -7,10 +7,7 @@ namespace Sweetchuck\GitStatusTree;
 class GitStatusParser
 {
 
-    /**
-     * @var array
-     */
-    protected static $statuses = [
+    protected static array $statuses = [
         'Ax' => [
             'label' => 'added to index',
         ],
@@ -132,10 +129,7 @@ class GitStatusParser
         }
     }
 
-    /**
-     * @var string
-     */
-    protected $renameSeparator = ' -> ';
+    protected string $renameSeparator = ' -> ';
 
     public function parse(string $lines): Entry
     {

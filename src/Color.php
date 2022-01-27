@@ -7,50 +7,23 @@ namespace Sweetchuck\GitStatusTree;
 class Color
 {
 
-    /**
-     * @var null|string
-     */
-    public $foreGround = null;
+    public ?string $foreGround = null;
 
-    /**
-     * @var null|string
-     */
-    public $backGround = null;
+    public ?string $backGround = null;
 
-    /**
-     * @var bool
-     */
-    public $bold = false;
+    public bool $bold = false;
 
-    /**
-     * @var bool
-     */
-    public $dim = false;
+    public bool $dim = false;
 
-    /**
-     * @var bool
-     */
-    public $underscore = false;
+    public bool $underscore = false;
 
-    /**
-     * @var bool
-     */
-    public $underline = false;
+    public bool $underline = false;
 
-    /**
-     * @var bool
-     */
-    public $blink = false;
+    public bool $blink = false;
 
-    /**
-     * @var bool
-     */
-    public $reverse = false;
+    public bool $reverse = false;
 
-    /**
-     * @var bool
-     */
-    public $conceal = false;
+    public bool $conceal = false;
 
     public function getOptions(): array
     {

@@ -2,15 +2,18 @@
 
 declare(strict_types = 1);
 
+namespace Sweetchuck\GitStatusTree\Tests\Unit;
+
 use Codeception\Test\Unit;
-use PHPUnit\Framework\Assert;
 use Sweetchuck\GitStatusTree\Color;
+use Sweetchuck\GitStatusTree\Tests\UnitTester;
 
 /**
  * @covers \Sweetchuck\GitStatusTree\Color
  */
 class ColorTest extends Unit
 {
+    protected UnitTester $tester;
 
     public function testAll()
     {
@@ -18,7 +21,7 @@ class ColorTest extends Unit
         $color->underline = true;
         $color->reverse = true;
 
-        Assert::assertSame(
+        $this->tester->assertSame(
             [
                 'bold' => false,
                 'dim' => false,
@@ -31,7 +34,7 @@ class ColorTest extends Unit
             $color->getOptions(),
         );
 
-        Assert::assertSame(
+        $this->tester->assertSame(
             [
                 'underline',
                 'reverse',
@@ -39,7 +42,7 @@ class ColorTest extends Unit
             $color->getEnabledOptions(),
         );
 
-        Assert::assertSame(
+        $this->tester->assertSame(
             [
                 'bold',
                 'dim',

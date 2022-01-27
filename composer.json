@@ -1,29 +1,55 @@
 {
+    "type": "project",
     "name": "sweetchuck/git-status-tree",
     "description": "@todo project description",
+    "keywords": [
+        "git",
+        "status",
+        "tree"
+    ],
     "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Andor",
+            "homepage": "https://github.com/Sweetchuck",
+            "role": "maintainer"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "bin-dir": "bin",
+        "allow-plugins": {
+            "sweetchuck/git-hooks": true
+        },
         "preferred-install": "dist",
         "optimize-autoloader": true,
         "sort-packages": true
     },
     "repositories": {},
     "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
         "pbergman/tree-helper": "^1.0",
-        "symfony/console": "^4.3",
-        "symfony/process": "^4.3"
+        "symfony/console": "^5.0",
+        "symfony/process": "^5.4"
     },
     "require-dev": {
-        "codeception/codeception": "^3.0",
+        "codeception/codeception": "^4.1",
+        "codeception/module-asserts": "^2.0",
+        "codeception/module-cli": "^2.0",
+        "nuvoleweb/robo-config": "^2.0",
+        "phpmd/phpmd": "^2.11",
         "squizlabs/php_codesniffer": "^3.4",
-        "sweetchuck/git-hooks": "^0.0",
-        "sweetchuck/robo-git": "^0.0",
-        "sweetchuck/robo-phpcs": "^0.0",
-        "sweetchuck/robo-phpmd": "^0.0"
+        "sweetchuck/git-hooks": "2.x-dev",
+        "sweetchuck/robo-composer": "2.x-dev",
+        "sweetchuck/robo-git": "2.x-dev",
+        "sweetchuck/robo-phpcs": "2.x-dev",
+        "sweetchuck/robo-phpmd": "^2.x-dev",
+        "symfony/yaml": "^5.4"
     },
+    "bin": [
+        "bin/git-status-tree"
+    ],
     "autoload": {
         "psr-4": {
             "Sweetchuck\\GitStatusTree\\": "src/"
@@ -31,17 +57,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sweetchuck\\GitStatusTree\\Test\\Helper\\": "tests/_support/Helper/",
-            "Sweetchuck\\GitStatusTree\\Tests\\Unit\\": "tests/unit/"
+            "Sweetchuck\\GitStatusTree\\Tests\\Unit\\": "tests/unit/",
+            "Sweetchuck\\GitStatusTree\\Tests\\": "tests/_support/"
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "@deploy-git-hooks"
-        ],
-        "post-update-cmd": [
-            "@deploy-git-hooks"
-        ],
-        "deploy-git-hooks": "\\Sweetchuck\\GitHooks\\Composer\\Scripts::deploy"
-    }
+    "scripts": {},
+    "scripts-descriptions": {}
 }

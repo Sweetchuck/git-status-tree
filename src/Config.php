@@ -6,72 +6,36 @@ namespace Sweetchuck\GitStatusTree;
 
 class Config
 {
-    /**
-     * @var bool|null
-     */
-    public $colorize = null;
+    public ?bool $colorize = null;
 
-    /**
-     * @var bool
-     */
-    public $colorizeStatus = true;
+    public bool $colorizeStatus = true;
 
-    /**
-     * @var bool
-     */
-    public $colorizeFileName = true;
+    public bool $colorizeFileName = true;
 
     /**
      * @var \Sweetchuck\GitStatusTree\Color[]
      */
-    public $colors = [];
+    public array $colors = [];
 
-    /**
-     * @var bool
-     */
-    public $showTreeLines = true;
+    public bool $showTreeLines = true;
 
-    /**
-     * @var array
-     */
-    public $sortBy = ['type'];
+    public array $sortBy = ['type'];
 
-    /**
-     * @var bool
-     */
-    public $showStatus = true;
+    public bool $showStatus = true;
 
-    /**
-     * @var int
-     */
-    public $indentSize = 4;
+    public int $indentSize = 4;
 
-    /**
-     * @var bool
-     */
-    public $groupEmptyDirs = true;
+    public bool $groupEmptyDirs = true;
 
-    /**
-     * @var string
-     */
-    public $treeLineCharChild = '├';
+    public string $treeLineCharChild = '├';
 
-    /**
-     * @var string
-     */
-    public $treeLineCharChildLast = '└';
+    public string $treeLineCharChildLast = '└';
 
-    /**
-     * @var string
-     */
-    public $treeLineCharVertical = '│';
+    public string $treeLineCharVertical = '│';
 
-    /**
-     * @var string
-     */
-    public $treeLineCharHorizontal = '─';
+    public string $treeLineCharHorizontal = '─';
 
-    protected static $propertyMapping = [
+    protected static array $propertyMapping = [
         'colorize' => 'colorize',
         'colorizestatus' => 'colorizeStatus',
         'colorizefilename' => 'colorizeFileName',
@@ -89,7 +53,7 @@ class Config
 
     public function __clone()
     {
-        foreach ($this->colors as $key => $color) {
+        foreach (array_keys($this->colors) as $key) {
             $this->colors[$key] = clone $this->colors[$key];
         }
     }

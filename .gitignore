@@ -1,6 +1,19 @@
 
-/bin/
-/reports/
-/tests/_output/
+# Codeception.
+/tests/_log/
 /tests/_support/_generated/
+/tests/*.suite.yml
+/codeception.yml
+
+# Composer.
 /vendor/
+
+# GitHooks.
+/.git-hooks.local
+
+# Sniffer.
+/phpcs.xml
+
+# Custom config.
+/artifacts/
+/robo.yml

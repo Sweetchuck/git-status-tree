@@ -4,45 +4,28 @@ declare(strict_types = 1);
 
 namespace Sweetchuck\GitStatusTree;
 
-use AssertionError;
-
 class Entry
 {
 
-    /**
-     * @var string
-     */
-    public $status = '';
+    public string $status = '';
 
-    /**
-     * @var string
-     */
-    public $name = '';
+    public string $name = '';
 
-    /**
-     * @var string
-     */
-    public $oldName = '';
+    public string $oldName = '';
 
     /**
      * @var null|static
      */
     public $parent = null;
 
-    /**
-     * @var string
-     */
-    public $type = 'file';
+    public string $type = 'file';
 
     /**
      * @var static[]
      */
-    public $children = [];
+    public array $children = [];
 
-    /**
-     * @var string
-     */
-    public $baseDir = '.';
+    public string $baseDir = '.';
 
     public function getPathname()
     {
@@ -58,7 +41,7 @@ class Entry
     {
         assert(
             $index < count($paths),
-            new AssertionError("Out of bound index=$index " . implode(',', $paths)),
+            "Out of bound index=$index " . implode(',', $paths),
         );
 
         $name = $paths[$index];

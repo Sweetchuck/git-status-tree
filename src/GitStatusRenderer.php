@@ -12,31 +12,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 class GitStatusRenderer
 {
 
-    /**
-     * @var \Symfony\Component\Console\Output\OutputInterface
-     */
-    protected $output;
+    protected OutputInterface $output;
 
-    /**
-     * @var \Sweetchuck\GitStatusTree\EntryComparer
-     */
-    protected $comparer;
+    protected EntryComparer $comparer;
 
-    /**
-     * @var \Sweetchuck\GitStatusTree\Config
-     */
-    protected $config;
+    protected Config $config;
 
     /**
      * @var string[]
      */
-    protected $treeLineChars = [];
+    protected array $treeLineChars = [];
 
     public function __construct(?EntryComparer $comparer = null)
     {
         $this->comparer = $comparer ?? new EntryComparer();
     }
 
+    /**
+     * @return $this
+     */
     public function render(
         OutputInterface $output,
         Entry $entry,
@@ -67,6 +61,9 @@ class GitStatusRenderer
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function buildTree(Entry $entry, TreeHelper $tree)
     {
         if ($entry->parent !== null) {
@@ -94,7 +91,6 @@ class GitStatusRenderer
                 $format = '<status_%s_status>%s</>';
                 if (mb_substr($status['machine'], 0, 1) === 'x') {
                     $format = ' <status_%s_status>%s</>';
-
                 } elseif (mb_substr($status['machine'], -1) === 'x') {
                     $format = '<status_%s_status>%s</> ';
                 }
@@ -105,9 +101,10 @@ class GitStatusRenderer
             $label[] = $human;
         }
 
+        $suffix = $entry->type === 'dir' ? '/' : '';
         $label[] = $colorize && $this->config->colorizeFileName ?
-            sprintf('<status_%s_filename>%s</>', $status['machine'], OutputFormatter::escape($entry->name))
-            : $entry->name;
+            sprintf('<status_%s_filename>%s</>', $status['machine'], OutputFormatter::escape($entry->name . $suffix))
+            : $entry->name . $suffix;
 
         if ($entry->oldName) {
             $label[] = '<- ' . $entry->oldName;
@@ -125,6 +122,9 @@ class GitStatusRenderer
         return '<treelines>' . OutputFormatter::escape($char) . '</>';
     }
 
+    /**
+     * @return $this
+     */
     protected function initComparer()
     {
         $this->comparer->setSortBy($this->config->sortBy);
@@ -132,6 +132,9 @@ class GitStatusRenderer
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function initOutputFormatterStyles()
     {
         $formatter = $this->output->getFormatter();
@@ -149,6 +152,9 @@ class GitStatusRenderer
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function initTreeLineChars()
     {
         $indentSize = $this->config->indentSize;

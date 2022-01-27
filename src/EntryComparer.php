@@ -9,7 +9,7 @@ class EntryComparer
     /**
      * @var string[]
      */
-    protected $sortBy = ['type', 'name'];
+    protected array $sortBy = ['type', 'name'];
 
     public function getSortBy(): array
     {

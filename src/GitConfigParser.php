@@ -7,10 +7,7 @@ namespace Sweetchuck\GitStatusTree;
 class GitConfigParser
 {
 
-    /**
-     * @var array
-     */
-    protected $schema = [
+    protected array $schema = [
         'color.status-tree' => [
             'type' => 'mapping',
             'mapping' => [
@@ -36,11 +33,11 @@ class GitConfigParser
         ],
         'color.status-tree.status_am_status' => [
             'type' => 'color',
-            'default' => 'cyan',
+            'default' => 'normal blue',
         ],
         'color.status-tree.status_am_filename' => [
             'type' => 'color',
-            'default' => 'cyan',
+            'default' => 'normal blue',
         ],
         'color.status-tree.status_ad_status' => [
             'type' => 'color',

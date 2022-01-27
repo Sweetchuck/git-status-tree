@@ -9,14 +9,8 @@ use Symfony\Component\Console\Helper\ProcessHelper;
 class GitStatusReader extends GitCommandBase
 {
 
-    /**
-     * @var \Sweetchuck\GitStatusTree\GitStatusParser
-     */
-    protected $parser;
+    protected GitStatusParser $parser;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(ProcessHelper $processHelper, ?GitStatusParser $parser = null)
     {
         parent::__construct($processHelper);

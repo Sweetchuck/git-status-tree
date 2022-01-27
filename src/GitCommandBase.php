@@ -10,13 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 class GitCommandBase
 {
 
-    /** @var null|\Symfony\Component\Console\Output\OutputInterface */
-    protected $output;
+    protected ?OutputInterface $output;
 
-    /**
-     * @return null|\Symfony\Component\Console\Output\OutputInterface
-     */
-    public function output()
+    public function output(): ?OutputInterface
     {
         return $this->output;
     }
@@ -28,24 +24,12 @@ class GitCommandBase
         return $this;
     }
 
-    /**
-     * @var string
-     */
-    protected $stdOutput = '';
+    protected string $stdOutput = '';
 
-    /**
-     * @var string
-     */
-    protected $stdError = '';
+    protected string $stdError = '';
 
-    /**
-     * @var \Symfony\Component\Console\Helper\ProcessHelper
-     */
-    protected $processHelper;
+    protected ProcessHelper $processHelper;
 
-    /**
-     * @var callable
-     */
     protected $processWrapperCallback;
 
     public function __construct(ProcessHelper $processHelper)

@@ -2,14 +2,17 @@
 
 declare(strict_types = 1);
 
+namespace Sweetchuck\GitStatusTree\Tests\Unit;
+
 use Codeception\Test\Unit;
-use PHPUnit\Framework\Assert;
 use Sweetchuck\GitStatusTree\Color;
 use Sweetchuck\GitStatusTree\Config;
 use Sweetchuck\GitStatusTree\GitConfigParser;
+use Sweetchuck\GitStatusTree\Tests\UnitTester;
 
 class GitConfigParserTest extends Unit
 {
+    protected UnitTester $tester;
 
     public function casesParse(): array
     {
@@ -52,10 +55,10 @@ class GitConfigParserTest extends Unit
         $actual = $parser->parse($stdOutput);
         $actualColors = $actual->colors;
         $actual->colors = [];
-        Assert::assertEquals($expected, $actual);
+        $this->tester->assertEquals($expected, $actual);
 
         foreach ($colorsToCheck as $key) {
-          Assert::assertEquals($expectedColors[$key], $actualColors[$key]);
+            $this->tester->assertEquals($expectedColors[$key], $actualColors[$key]);
         }
     }
 }

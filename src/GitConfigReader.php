@@ -8,10 +8,7 @@ use Symfony\Component\Console\Helper\ProcessHelper;
 
 class GitConfigReader extends GitCommandBase
 {
-    /**
-     * @var \Sweetchuck\GitStatusTree\GitConfigParser
-     */
-    protected $parser;
+    protected GitConfigParser $parser;
 
     public function __construct(ProcessHelper $processHelper, ?GitConfigParser $parser = null)
     {

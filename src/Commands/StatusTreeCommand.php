@@ -17,20 +17,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class StatusTreeCommand extends Command
 {
 
-    /**
-     * @var \Sweetchuck\GitStatusTree\GitConfigReader|null
-     */
-    protected $configReader;
+    protected ?GitConfigReader $configReader = null;
 
-    /**
-     * @var \Sweetchuck\GitStatusTree\GitStatusReader|null
-     */
-    protected $statusReader;
+    protected ?GitStatusReader $statusReader = null;
 
-    /**
-     * @var \Sweetchuck\GitStatusTree\GitStatusRenderer|null
-     */
-    protected $statusRenderer;
+    protected ?GitStatusRenderer $statusRenderer = null;
 
     public function __construct(
         string $name = null,
@@ -121,5 +112,7 @@ class StatusTreeCommand extends Command
         }
 
         $this->statusRenderer->render($output, $status, $config);
+
+        return 0;
     }
 }
