@@ -11,10 +11,6 @@ $projectRoot = $isPhar ? \Phar::running() : '.';
 
 $vendorDir = 'vendor';
 
-$autoloadPaths = [
-    "$projectRoot/$vendorDir/autoload.php",
-];
-
 if (!is_dir("$projectRoot/$vendorDir")) {
     $composerFileName = 'composer.json';
     if (!$isPhar && getenv('COMPOSER')) {
@@ -27,8 +23,11 @@ if (!is_dir("$projectRoot/$vendorDir")) {
     }
 }
 
-$autoloadPaths[] = "$projectRoot/$vendorDir/autoload.php";
-$autoloadPaths[] = __DIR__ . "/../../../autoload.php";
+$autoloadPaths = [
+    __DIR__ . "/../$vendorDir/autoload.php",
+    __DIR__ . "/../../../autoload.php",
+    "$projectRoot/$vendorDir/autoload.php",
+];
 
 foreach ($autoloadPaths as $autoloadPath) {
     if (!file_exists($autoloadPath)) {
