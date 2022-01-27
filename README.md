@@ -35,3 +35,17 @@ Changes not staged for commit:
 ├── A  .git-hooks
 └──  M README.md
 ```
+
+
+## Requirements
+
+* PHP >= 7.4
+
+
+## Install
+
+1. Download the `git-status-tree.phar` file from the latest [release](https://github.com/Sweetchuck/git-status-tree/releases).
+2. `mv ~/Downloads/git-status-tree.phar ~/bin/git-status-tree`
+3. `chmod +x ~/bin/git-status-tree`
+4. `git status-tree`
+5. Have fun
