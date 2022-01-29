@@ -19,6 +19,7 @@
     "prefer-stable": true,
     "config": {
         "allow-plugins": {
+            "cweagans/composer-patches": true,
             "sweetchuck/git-hooks": true
         },
         "preferred-install": "dist",
@@ -29,6 +30,7 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
+        "cweagans/composer-patches": "^1.7",
         "pbergman/tree-helper": "^1.0",
         "symfony/console": "^5.0",
         "symfony/process": "^5.4"
@@ -44,7 +46,7 @@
         "sweetchuck/robo-composer": "2.x-dev",
         "sweetchuck/robo-git": "2.x-dev",
         "sweetchuck/robo-phpcs": "2.x-dev",
-        "sweetchuck/robo-phpmd": "^2.x-dev",
+        "sweetchuck/robo-phpmd": "2.x-dev",
         "symfony/yaml": "^5.4"
     },
     "bin": [
@@ -62,5 +64,14 @@
         }
     },
     "scripts": {},
-    "scripts-descriptions": {}
+    "scripts-descriptions": {},
+    "extra": {
+        "enable-patching": true,
+        "composer-exit-on-patch-failure": true,
+        "patches": {
+            "pbergman/tree-helper": {
+                "https://github.com/pbergman/tree-printer/pull/3 - PHP 8.1": "https://patch-diff.githubusercontent.com/raw/pbergman/tree-printer/pull/3.patch"
+            }
+        }
+    }
 }
