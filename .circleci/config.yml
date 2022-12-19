@@ -26,7 +26,7 @@ executors:
         docker:
             -
                 name: 'main'
-                image: 'circleci/php:7.4'
+                image: 'cimg/php:7.4'
 
     php_plus1:
         environment:
@@ -36,7 +36,7 @@ executors:
         docker:
             -
                 name: 'main'
-                image: 'circleci/php:8.0'
+                image: 'cimg/php:8.0'
 
     php_plus2:
         environment:
@@ -47,6 +47,16 @@ executors:
             -
                 name: 'main'
                 image: 'cimg/php:8.1'
+
+    php_plus3:
+        environment:
+            <<: *env_common
+            <<: *env_xdebug
+            <<: *env_composer
+        docker:
+            -
+                name: 'main'
+                image: 'cimg/php:8.2'
 
 commands:
     install_php_extension_pcov:
@@ -90,14 +100,15 @@ commands:
                         - '~/.cache/composer/'
             -
                 run:
-                  name: 'Composer install – set PATH'
-                  command: |-
-                      echo "export PATH=\"${PWD}/$(composer config bin-dir):\${PATH}\"" >> "${BASH_ENV}"
+                    name: 'Composer install – set PATH'
+                    command: |-
+                        echo "export PATH=\"${PWD}/$(composer config bin-dir):\${PATH}\"" >> "${BASH_ENV}"
             -
                 run:
-                  name: 'Composer install – set phar.ini'
-                  command: |-
-                      echo 'phar.readonly=Off' | sudo tee '/usr/local/etc/php/conf.d/docker-php-ext-phar.ini'
+                    name: 'Composer install – set phar.ini'
+                    command: |-
+                        scanDir="$(php -i | grep --color=never --only-matching --perl-regexp '(?<=^Scan this dir for additional \.ini files => ).+')"
+                        echo 'phar.readonly=Off' | sudo tee "${scanDir}/docker-php-ext-phar.ini"
 
     release_build:
         description: 'Release build'
@@ -241,6 +252,14 @@ jobs:
             - 'install_php_extension_pcov'
             - 'composer_install'
             - 'test'
+    test_php_plus3:
+        executor: 'php_plus1'
+        working_directory: '~/repo'
+        steps:
+            - 'checkout'
+            - 'install_php_extension_pcov'
+            - 'composer_install'
+            - 'test'
     release_publish:
         executor: 'php_min'
         working_directory: '~/repo'
@@ -278,6 +297,11 @@ workflows:
                     requires:
                         - 'build'
             -
+                test_php_plus3:
+                    filters: *wf_lint_and_test_job_filter
+                    requires:
+                        - 'build'
+            -
                 release_publish:
                     filters:
                         branches:
@@ -289,3 +313,4 @@ workflows:
                         - 'test_php_min'
                         - 'test_php_plus1'
                         - 'test_php_plus2'
+                        - 'test_php_plus3'
